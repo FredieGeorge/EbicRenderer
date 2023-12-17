@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.15)
+project(enteproject C)
+
+all:
+    $(CC) $(CFLAGS) -g -o tut main.c -lGL -lglfw -lGLEW -lm
