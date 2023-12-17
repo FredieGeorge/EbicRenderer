@@ -5,7 +5,7 @@
 #define CENTRE 20
 #define SIDE 10
 #define X_TRANSLATE 30
-#define Y_TRANSLATE -10
+#define Y_TRANSLATE -20
 #define piec_wise_ceil(a) a==0? 1:1+(int) floor(a)
 #define max(a,b) \
    ({ __typeof__ (a) _a = (a); \
@@ -240,22 +240,32 @@ fclose(f);
 
 
 }
+void multiplyMatrices(float result[4][4], float mat1[4][4], float mat2[4][4]) {
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            result[i][j] = 0;
+            for (int k = 0; k < 4; ++k) {
+                result[i][j] += mat1[i][k] * mat2[k][j];
+            }
+        }
+    }
+}
 void constructRotationMatrix(float rotationMatrix[4][4], float angleX, float angleY, float angleZ) {
     // Convert angles to radians
     angleX = angleX * M_PI / 180.0;
     angleY = angleY * M_PI / 180.0;
     angleZ = angleZ * M_PI / 180.0;
-
+    float temp[4][4];
     // Identity matrix
     for (int i = 0; i < 4; ++i)
         for (int j = 0; j < 4; ++j)
             rotationMatrix[i][j] = (i == j) ? 1.0 : 0.0;
-
+//= [55, 60, 15]
     // Translate to origin
-    float translateToOrigin[4][4] = {{1, 0, 0, 0},
-                                      {0, 1, 0, 0},
-                                      {0, 0, 1, 0},
-                                      {-50, -60, -15, 1}};
+    float translateToOrigin[4][4] = {{1, 0, 0, -55},
+                                      {0, 1, 0, -60},
+                                      {0, 0, 1, -15},
+                                      {0, 0, 0, 1}};
 
     // Rotate
     float rotationX[4][4] = {{1, 0, 0, 0},
@@ -274,26 +284,16 @@ void constructRotationMatrix(float rotationMatrix[4][4], float angleX, float ang
                                 {0, 0, 0, 1}};
 
     // Translate back
-    float translateBack[4][4] = {{1, 0, 0, 0},
-                                  {0, 1, 0, 0},
-                                  {0, 0, 1, 0},
-                                  {50, 60, 15, 1}};
+    float translateBack[4][4] = {{1, 0, 0, 55},
+                                  {0, 1, 0, 60},
+                                  {0, 0, 1, 15},
+                                  {0, 0, 0, 1}};
 
     // Combine transformations
-    multiplyMatrices(translateToOrigin, rotationMatrix, rotationX);
-    multiplyMatrices(rotationMatrix, rotationMatrix, rotationY);
-    multiplyMatrices(rotationMatrix, rotationMatrix, rotationZ);
-    multiplyMatrices(rotationMatrix, rotationMatrix, translateBack);
+    multiplyMatrices(temp, translateBack, rotationX);
+    multiplyMatrices(rotationMatrix, temp, rotationY);
+    multiplyMatrices(temp, rotationMatrix, rotationZ);
+    multiplyMatrices(rotationMatrix, temp, translateToOrigin);
 }
 
 // Function to multiply two matrices
-void multiplyMatrices(float result[4][4], float mat1[4][4], float mat2[4][4]) {
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            result[i][j] = 0;
-            for (int k = 0; k < 4; ++k) {
-                result[i][j] += mat1[i][k] * mat2[k][j];
-            }
-        }
-    }
-}

@@ -1,14 +1,15 @@
-#include </home/chef/Documents/Project/graphics/myawesomelibrary.h>
+#include </home/chef/Documents/Project/EbicRenderer/myawesomelibrary.h>
 
 
 // }
 int main()
 {	const float camera_vector[4]={1,2,3};//has to be a unit vectir
     const char* density = "^,\";:Ili!>~+_?-][]}[{1)(/tjrxnucvzXYUJCLQ0OZmwbqdkhdbMo*#MW&8B@M8$";
-    float focus=6;
+    float focus=10;
 float position[4]={4,3,2,1};
 float persp_transform_matrix[4][4]={{focus,0,0,0},{0,focus,0,0},{0,0,0,0},{0,0,1,0}};
-float rotation[4][4]={{1,0,0,0},{0,cos(THETA),-1*sin(THETA),0},{0,sin(THETA),cos(THETA),0},{0,0,0,1}};
+float rotate[4][4];
+constructRotationMatrix(rotate,0,0,5);
 float translate[4][4]={{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
 char star='*';
 //printf("didnt dump yet line 154");
@@ -63,7 +64,7 @@ char o[]={'e','o'};
 int counter=0;
 while (1){
 
-// update_triangles_matrix(translate,&triangles);
+update_triangles_matrix(rotate,&triangles);
 free_array_faces(&framebuffer);
 for (int j=0;j<triangles.length;j++){
         brightn=calculate_brightness(triangles.pointer_to_array_of_faces[j],camera_vector);
@@ -85,7 +86,6 @@ for(int i=0 ; i<framebuffer.length;i++){
 refresh();
 erase();
 output_array_faces(&framebuffer);
-// mvprintw(0,0,'%d',counter);
 napms(100);
 counter++;
 }

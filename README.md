@@ -1,6 +1,7 @@
 # EbicRenderer
-It's a simple ascii renderer using ncurses.Just a jumping off point for a better renderer.
-![sample_cube](simple_cube.png)
+It's a simple ascii renderer.My first C project.
+![sample_cube](rotating_cuboid.gif)
+
 
 ## ToDos
 - [ ] Add a better camera system
