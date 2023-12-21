@@ -5,4 +5,5 @@ It's a simple ascii renderer.My first C project.
 
 ## ToDos
 - [ ] Add a better camera system
-- [ ] Add a better .obj parser (this one is just a proof of concept)
+- [x] Add a better .obj parser (this one is just a proof of concept)![teapot](teapot.png)
+-[ ] Need to work on ordering of faces in z direction (currently it's just a hack)
