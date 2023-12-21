@@ -35,6 +35,7 @@ float temp_triangles[][4]={{51,10,10,1},{60,10,10,1},{54,15,10,1}};
     }
 
     char line[256];
+    //first extract vertices to an arrays
     while (fgets(line, sizeof(line), file)) {
         if (line[0]=='f'){
         sscanf(line, "f %f/%f/%f %f/%f/%f %f/%f/%f",&temp_triangles[0][0],&temp_triangles[0][1],&temp_triangles[0][2],&temp_triangles[1][0],&temp_triangles[1][1],&temp_triangles[1][2],&temp_triangles[2][0],&temp_triangles[2][1],&temp_triangles[2][2]);
