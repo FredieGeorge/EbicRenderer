@@ -155,6 +155,9 @@ void draw_triangle(float** ver,char obj){
 if ((ver[0][1]==ver[1][1])&&(ver[2][1]==ver[1][1])){
     x_left=min(ver[0][0],min(ver[1][0],ver[2][0]));
     x_right=max(ver[0][0],max(ver[1][0],ver[2][0]));
+    for(int i=0;i<piec_wise_ceil(abs(x_left-x_right));i++){
+        
+    }
     move(ver[0][1]+Y_TRANSLATE,ceil(x_left)+X_TRANSLATE);
     hline(obj,piec_wise_ceil(abs(x_left-x_right)));
 
@@ -200,7 +203,19 @@ else{
 }}
 
 
+void draw_on_screen(char *density,float a[1000][1000][2]){
+    for(int i=0;i<1000;i++){
+        for(int j =0 ;j<1000;j++){
+            if (a[i][j][0]>0){
+                mvprintw(i,j,density[(int) a[i][j][0]]);
 
+            }
+
+
+        }
+    }
+
+}
 
 int main(){
 int index_1;
@@ -211,7 +226,7 @@ vertices ffff;
 fb framebuffer;
 fb framebuffer_3d;
     const char* density = "^,\";:Ili!>~+_?-][]}[{1)(/tjrxnucvzXYUJCLQ0OZmwbqdkhdbMo*#MW&8B@M8$";
-
+float zbuffer[1000][1000][2];
 float camera_vec[3]={0,0,1};
 float temp_vertex[4]={1.2,12.213,123.2,1};
 float temp_vertex_2d[2];
